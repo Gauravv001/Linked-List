@@ -7,7 +7,6 @@ public:
     int data;
     Node *next;
 
-    // Constructor call
     Node(int data)
     {
         this->data = data;
@@ -42,18 +41,29 @@ Node *takeInput()
     return head;
 }
 
-Node *insertNodeAtBeg(Node *head, int data)
+Node *insertNodeAtTheEnd(Node *head, int data)
 {
     Node *newNode = new Node(data);
-    newNode->data = data;
-    newNode->next = head;
-    head = newNode;
+    Node *temp = head;
+
+    if (head == NULL)
+    {
+        head = newNode;
+        return head;
+    }
+
+    while (temp->next != NULL)
+    {
+        temp = temp->next;
+    }
+    temp->next = newNode;
+
     return head;
 }
-
-void Print(Node *head)
+void Print(Node *&head)
 {
     Node *temp = head;
+
     while (temp != NULL)
     {
         cout << temp->data << " ";
@@ -65,13 +75,13 @@ int main()
 {
     Node *head = takeInput();
     Print(head);
-    cout<<endl;
-    cout<<"enter newData:"<<endl;
-    int data;
-    cin >> data;
 
-    head=insertNodeAtBeg(head, data);
+    cout << endl;
+
+    int newData;
+    cin >> newData;
+
+    head = insertNodeAtTheEnd(head, newData);
     Print(head);
-
     return 0;
 }
